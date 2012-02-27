@@ -22,7 +22,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "kmartinez@convio.com"
   gem.authors = ["Kyle Martinez"]
   gem.files = FileList["[A-Z]*.*", "{lib,test,spec}/**/*"]
-  # dependencies defined in Gemfile
+  gem.add_dependency("colored")
 end
 Jeweler::RubygemsDotOrgTasks.new
 
