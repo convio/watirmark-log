@@ -17,10 +17,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "watirmark-log"
   gem.homepage = "http://github.com/kylemartinez/watirmark-log"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{watirmark-log is a gem for logging}
+  gem.description = %Q{watirmark-log allows you to use logging to help debug your code}
   gem.email = "kmartinez@convio.com"
   gem.authors = ["Kyle Martinez"]
+  gem.files = FileList["[A-Z]*.*", "{lib,test,spec}/**/*"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
