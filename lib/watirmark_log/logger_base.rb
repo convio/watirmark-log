@@ -35,19 +35,19 @@ module WatirmarkLog
 
     def output_message message, color
       case color
-        when :black, "black"
+        when :black
           puts message.black
-        when :red, "red"
+        when :red
           puts message.red
-        when :green, "green"
+        when :green
           puts message.green
-        when :yellow, "yellow"
+        when :yellow
           puts message.yellow
-        when :blue, "blue"
+        when :blue
           puts message.blue
-        when :magenta, "magenta"
+        when :magenta
           puts message.magenta
-        when :cyan, "cyan"
+        when :cyan
           puts message.cyan
         else
           puts message.white
@@ -55,10 +55,12 @@ module WatirmarkLog
     end
 
     def output_to_file message
+      puts "output_file"
       @log_file.puts message
     end
 
     def output_to_report_file message
+      puts "report_file"
       @spec_report_file.puts message
     end
 
