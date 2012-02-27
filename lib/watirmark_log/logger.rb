@@ -1,5 +1,5 @@
 module WatirmarkLog
-  class Logger < LoggerBase
+  class  Logger < LoggerBase
     attr_accessor :name,
                   :level,
                   :turn_off,

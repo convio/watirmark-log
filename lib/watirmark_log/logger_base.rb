@@ -55,12 +55,11 @@ module WatirmarkLog
     end
 
     def output_to_file message
-      puts "output_file"
       @log_file.puts message
+      @log_file.flush
     end
 
     def output_to_report_file message
-      puts "report_file"
       @spec_report_file.puts message
     end
 
