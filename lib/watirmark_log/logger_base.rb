@@ -66,7 +66,7 @@ module WatirmarkLog
     def create_report
       dir = Dir.pwd
       file_name = "#{@name}.log"
-      reports_dir = dir.sub(/spec\/(.)*/, "spec/reports")
+      reports_dir = dir + "/spec/reports"
       if File.directory? reports_dir
         @spec_report_file = File.open(reports_dir + "/" + file_name, 'w')
         @spec_report_file.puts "WatirmarkLog: " + @name
