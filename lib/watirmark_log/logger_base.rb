@@ -65,8 +65,8 @@ module WatirmarkLog
 
     def create_report
       file_name = "#{@name}.log"
-      if File.directory? "Reports"
-        @spec_report_file = File.open("Reports" + "/" + file_name, 'w')
+      if File.directory? "reports"
+        @spec_report_file = File.open("reports" + "/" + file_name, 'w')
         @spec_report_file.puts "WatirmarkLog: " + inspect.to_s
       else
         #spec/Reports directory does not exits
