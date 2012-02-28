@@ -100,5 +100,36 @@ module WatirmarkLog
     def colors
       {:black => :black, :red => :red,:green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
     end
+
+    # prints out help full tips on using WatirmarkLog
+    def help
+      log_tips = "\nInitializing a Watirmark Logger:
+logger = WatirmarkLog::Loger.new('optional_logger_name')\n
+Logging methods:
+logger.debug 'debug message' => 'DEBUG: debug message'
+logger.info 'info message' => 'INFO: info message'
+logger.warn 'warn message' => 'WARN: warn message'
+logger.error 'error message' => 'ERROR: error message'
+logger.turn_off = true => turns off all logging to stdout\n
+Logging Hierarchy (debug < info < warn < error):
+log.level = :info
+logger.debug 'this message will NOT execute'
+logger.info 'info message'
+logger.warn 'warn message'
+logger.error 'this message will AlWAYS execute'\n
+Log Color Coding:
+log.colors => {:black => :black, :red => :red,:green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
+log.debug_color = :red
+log.debug 'debug message with color' => " + "DEBUG: debug message with color".red  + "
+\nCreating Log File:
+Create a file where all log information is streamed to.
+This is not dependent on log.level
+Ex.
+log.create_file
+log.create_file 'file_name.log'
+log.create_file 'file_name.log', directory"
+      puts log_tips
+
+    end
   end
 end
