@@ -1,38 +1,31 @@
 module WatirmarkLog
   class LoggerBase
+
+    # builds debug message and executes output_message if valid_conditions are met
     def debug message
       message = "DEBUG: " + message
-      process_message message, :debug if valid_conditions 0
+      output_message message, @debug_color if valid_conditions 0
     end
 
+    # builds info message and executes output_message if conditions are met
     def info message
       message = "INFO: " + message
-      process_message message, :info if valid_conditions 1
+      output_message message, @info_color if valid_conditions 1
     end
 
+    # builds info message and executes output_message if conditions are met
     def warn message
       message = "WARN: " + message
-      process_message message, :warn if valid_conditions 2
+      output_message message, @warn_color if valid_conditions 2
     end
 
+    # builds error message and executes output_message if conditions are met
     def error message
       message = "ERROR: " + message
-      process_message message, :error if valid_conditions 3
+      output_message message, @error_color if valid_conditions 3
     end
 
-    def process_message message, level
-      case level
-        when :debug
-          output_message message, @debug_color
-        when :info
-          output_message message, @info_color
-        when :warn
-          output_message message, @warn_color
-        when :error
-          output_message message, @error_color
-      end
-    end
-
+    # sends log message to stdout with color coding
     def output_message message, color
       case color
         when :black
@@ -54,15 +47,22 @@ module WatirmarkLog
       end
     end
 
+    # streams log information to log_file
     def output_to_file message
       @log_file.puts message
       @log_file.flush
     end
 
+    # streams log information to spec/reports/file_name.log
     def output_to_report_file message
       @spec_report_file.puts message
     end
 
+    # This method is called each time a Logger instance is created
+    # Tries to find the /spec/reports directory which is created when the rake task is initialized
+    # If the directory is found .log file is created in that directory
+    # so all log information will be streamed to the file and viewable in hudson
+    # after the job has ran
     def create_report
       dir = Dir.pwd
       file_name = "#{@name}.log"
@@ -76,6 +76,7 @@ module WatirmarkLog
       end
     end
 
+    # returns logger level as an integer
     def get_level
       case @level
         when :debug, 0
@@ -91,16 +92,16 @@ module WatirmarkLog
       end
     end
 
+    # returns true if file_name is valid
+    # file name can only contain digits, underscores, characters
+    # file must be of type .log
     def valid_file_name
       (@file_name.match(/((\d)|([a-zA-Z])|(_))*.log/).to_s == @file_name)
     end
 
+    # determines if debug, info, warn, or error method is executed
     def valid_conditions level
       (get_level <= level and !@turn_off)
-    end
-
-    def invalid_message
-      puts "LOG ERROR: invalid log message"
     end
   end
 end

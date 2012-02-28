@@ -19,7 +19,7 @@ module WatirmarkLog
       @turn_off = false
       @name = name
 
-      @file_name = "#{@name}.log"
+      @file_name = "#{@name.gsub(" ", "")}.log"
       @file_destination = Dir.pwd
       @log_file = nil
       create_report
@@ -30,6 +30,10 @@ module WatirmarkLog
       @error_color = colors[:white]
     end
 
+    # creates a file that will stream all log information to
+    # file_name must be of type .log and only contain characters, digits, and underscores
+    # file_name is @name.log by defualt
+    # dir is the current working directory by debug
     def create_file file_name=@file_name, dir=Dir.pwd
       @file_name = file_name
       @file_destination = dir
@@ -45,34 +49,54 @@ module WatirmarkLog
       end
     end
 
+    # top level debug method
+    # writes debug message to stdout if level <= debug_level
+    # trys to stream debug message to log_file and report_file
+    # @log.debug "this is a debug message from #{@log.inspect}"
     def debug message
       super message
       output_to_file "DEBUG: " + message if @log_file
       output_to_report_file "DEBUG: " + message if @spec_report_file
     end
 
+    # top level info method
+    # writes info message to stdout if level <= info_level
+    # trys to stream info message to log_file and report_file
+    # @log.info "this is an info message from #{@log.inspect}"
     def info message
       super message
       output_to_file "INFO: " + message if @log_file
       output_to_report_file "INFO: " + message if @spec_report_file
     end
 
+    # top level warn method
+    # writes warn message to stdout if level <= warn_level
+    # trys to stream warn message to log_file and report_file
+    # @log.warn "this is a warn message from #{@log.inspect}"
     def warn message
       super message
       output_to_file "WARN: " + message if @log_file
       output_to_report_file "WARN: " + message if @spec_report_file
     end
 
+    # top level error method
+    # writes error message to stdout no matter what
+    # trys to stream error message to log_file and report_file
+    # @log.error "this is an error message from #{@log.inspect}"
     def error message
       super message
       output_to_file "ERROR: " + message if @log_file
       output_to_report_file "ERROR: " + message if @spec_report_file
     end
 
+    # returns the name of the Watirmark Logger
+    # @log.debug "This is a debug message from #{@log.inspect}"
     def inspect
       @name
     end
 
+    # returns a hash containing all valid colors in WatirmrkLog
+    # @log.debug_color = @log.colors[:red]
     def colors
       {:black => :black, :red => :red,:green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
     end
