@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.description = %Q{watirmark-log allows you to use logging to help debug your code}
   gem.email = "kmartinez@convio.com"
   gem.authors = ["Kyle Martinez"]
-  gem.files = FileList["[A-Z]*.*", "{lib,test,spec}/**/*"]
+  gem.files = Dir['lib/**/*.rb']
+  gem.test_files =  Dir['spec/**/*.rb']
   gem.add_dependency("colored")
 end
