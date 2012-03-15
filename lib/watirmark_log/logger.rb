@@ -1,5 +1,5 @@
 module WatirmarkLog
-  class  Logger < LoggerBase
+  class Logger < LoggerBase
     attr_accessor :name,
                   :level,
                   :turn_off,
@@ -28,6 +28,8 @@ module WatirmarkLog
       @info_color = colors[:white]
       @warn_color = colors[:white]
       @error_color = colors[:white]
+      @fatal_color = colors[:white]
+      @unknown_color = colors[:white]
     end
 
     # creates a file that will stream all log information to
@@ -89,6 +91,18 @@ module WatirmarkLog
       output_to_report_file "ERROR: " + message if @spec_report_file
     end
 
+    def fatal message
+      super message
+      output_to_file "FATAL: " + message if @log_file
+      output_to_report_file "FATAL: " + message if @spec_report_file
+    end
+
+    def unknown message
+      super message
+      output_to_file "UNKNOWN: " + message if @log_file
+      output_to_report_file "UNKNOWN: " + message if @spec_report_file
+    end
+
     # returns the name of the Watirmark Logger
     # @log.debug "This is a debug message from #{@log.inspect}"
     def inspect
@@ -98,7 +112,7 @@ module WatirmarkLog
     # returns a hash containing all valid colors in WatirmrkLog
     # @log.debug_color = @log.colors[:red]
     def colors
-      {:black => :black, :red => :red,:green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
+      {:black => :black, :red => :red, :green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
     end
 
     # prints out help full tips on using WatirmarkLog
@@ -120,8 +134,8 @@ logger.error 'this message will AlWAYS execute'\n
 Log Color Coding:
 log.colors => {:black => :black, :red => :red,:green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
 log.debug_color = :red
-log.debug 'debug message with color' => " + "DEBUG: debug message with color".red  + "
-\nCreating Log File:
+log.debug 'debug message with color' => " + "DEBUG: debug message with color".red + "
+      \nCreating Log File:
 Create a file where all log information is streamed to.
 This is not dependent on log.level
 Ex.

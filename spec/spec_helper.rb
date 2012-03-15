@@ -34,7 +34,7 @@ module WatirmarkLogTest
       when :cyan
         message = "\e[36m#{message}\e[0m\n"
       when :white
-        message = "\e[37m#{message}\e[0m\n"
+        message = "#{message}\n"
       else
         raise ArgumentError, "cannot find color '#{color}'"
     end

@@ -25,6 +25,16 @@ module WatirmarkLog
       output_message message, @error_color if valid_conditions 3
     end
 
+    def fatal message
+      message = "FATAL: " + message
+      output_message message, @fatal_color if valid_conditions 4
+    end
+
+    def unknown message
+      message = "UNKNOWN: " + message
+      output_message message, @unknown_color if valid_conditions 5
+    end
+
     # sends log message to stdout with color coding
     def output_message message, color
       case color
@@ -43,7 +53,7 @@ module WatirmarkLog
         when :cyan
           puts message.cyan
         else
-          puts message.white
+          puts message
       end
     end
 
@@ -87,6 +97,10 @@ module WatirmarkLog
           return 2
         when :error, 3
           return 3
+        when :fatal, 4
+          return 4
+        when :unknown, 5
+          return 5
         else
           return 0
       end
