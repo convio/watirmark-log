@@ -6,7 +6,7 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
   end
 
   specify "debug level should allow all log methods to be executed" do
-    [:debug, 0].each do |level|
+    [WatirmarkLog::Level::DEBUG, 0].each do |level|
       @log.level = level
       log_output = capture_stdout {
         @log.debug "debug message"
@@ -19,7 +19,7 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
   end
 
   specify "info level should not allow debug level log methods to be executed" do
-    [:info, 1].each do |level|
+    [WatirmarkLog::Level::INFO, 1].each do |level|
       @log.level = level
       log_output = capture_stdout {
         @log.debug "debug message"
@@ -33,7 +33,7 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
   end
 
   specify "warn level should not allow debug, and info level log methods to be executed" do
-    [:warn, 2].each do |level|
+    [WatirmarkLog::Level::WARN, 2].each do |level|
       @log.level = level
       log_output = capture_stdout {
         @log.debug "debug message"
@@ -47,7 +47,7 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
   end
 
   specify "error level should not allow debug, info, and warn level log methods to be executed" do
-    [:error, 3].each do |level|
+    [WatirmarkLog::Level::ERROR, 3].each do |level|
       @log.level = level
       log_output = capture_stdout {
         @log.debug "debug message"

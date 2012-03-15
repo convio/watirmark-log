@@ -15,7 +15,7 @@ module WatirmarkLog
                   :error_color
 
     def initialize(name="WatirmarkLog")
-      @level = :debug
+      @level = WatirmarkLog::Level::DEBUG
       @turn_off = false
       @name = name
 
@@ -143,7 +143,6 @@ log.create_file
 log.create_file 'file_name.log'
 log.create_file 'file_name.log', directory"
       puts log_tips
-
     end
   end
 end
