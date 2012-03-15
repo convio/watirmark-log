@@ -5,6 +5,6 @@ module WatirmarkLog
     WARN = 2
     ERROR = 3
     FATAL = 4
-    UNKOWN = 5
+    UNKNOWN = 5
   end
 end

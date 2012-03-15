@@ -12,7 +12,9 @@ module WatirmarkLog
                   :debug_color,
                   :info_color,
                   :warn_color,
-                  :error_color
+                  :error_color,
+                  :fatal_color,
+                  :unknown_color
 
     def initialize(name="WatirmarkLog")
       @level = WatirmarkLog::Level::DEBUG
