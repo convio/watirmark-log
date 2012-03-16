@@ -26,12 +26,12 @@ module WatirmarkLog
       @log_file = nil
       create_report
 
-      @debug_color = colors[:white]
-      @info_color = colors[:white]
-      @warn_color = colors[:white]
-      @error_color = colors[:white]
-      @fatal_color = colors[:white]
-      @unknown_color = colors[:white]
+      @debug_color = WatirmarkLog::Color::WHITE
+      @info_color = WatirmarkLog::Color::WHITE
+      @warn_color = WatirmarkLog::Color::WHITE
+      @error_color = WatirmarkLog::Color::WHITE
+      @fatal_color = WatirmarkLog::Color::WHITE
+      @unknown_color = WatirmarkLog::Color::WHITE
     end
 
     # creates a file that will stream all log information to
@@ -109,12 +109,6 @@ module WatirmarkLog
     # @log.debug "This is a debug message from #{@log.inspect}"
     def inspect
       @name
-    end
-
-    # returns a hash containing all valid colors in WatirmrkLog
-    # @log.debug_color = @log.colors[:red]
-    def colors
-      {:black => :black, :red => :red, :green => :green, :yellow => :yellow, :blue => :blue, :magenta => :magenta, :cyan => :cyan, :white => :white}
     end
 
     # prints out help full tips on using WatirmarkLog

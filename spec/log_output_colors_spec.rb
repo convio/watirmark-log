@@ -7,7 +7,7 @@ context "Unit Tests for WatirmarkLog color outputs" do
 
   specify "debug colors" do
     [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
-      @log.debug_color = @log.colors[color]
+      @log.debug_color = color
       log_output = capture_stdout {
         @log.debug "message with color"
       }
@@ -17,7 +17,7 @@ context "Unit Tests for WatirmarkLog color outputs" do
 
   specify "info colors" do
     [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
-      @log.info_color = @log.colors[color]
+      @log.info_color = color
       log_output = capture_stdout {
         @log.info "message with color"
       }
@@ -27,7 +27,7 @@ context "Unit Tests for WatirmarkLog color outputs" do
 
   specify "warn colors" do
     [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
-      @log.warn_color = @log.colors[color]
+      @log.warn_color = color
       log_output = capture_stdout {
         @log.warn "message with color"
       }
@@ -37,7 +37,7 @@ context "Unit Tests for WatirmarkLog color outputs" do
 
   specify "error colors" do
     [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
-      @log.error_color = @log.colors[color]
+      @log.error_color = color
       log_output = capture_stdout {
         @log.error "message with color"
       }
