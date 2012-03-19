@@ -89,7 +89,7 @@ module WatirmarkLog
     # returns logger level as an integer
     def get_level
       case @level
-        when 0, 1, 2, 3, 4
+        when 0, 1, 2, 3, 4, 5
           return @level
         else
           return WatirmarkLog::Level::DEBUG
