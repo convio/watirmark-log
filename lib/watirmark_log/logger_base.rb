@@ -3,35 +3,65 @@ module WatirmarkLog
 
     # builds debug message and executes output_message if valid_conditions are met
     def debug message
-      message = "DEBUG: " + message
+      message = "DEBUG: " + process_message(message)
+      output_message message, @debug_color if valid_conditions 0
+    end
+
+    def debug_pp message
+      message = "DEBUG: " + process_pp_message(message)
       output_message message, @debug_color if valid_conditions 0
     end
 
     # builds info message and executes output_message if conditions are met
     def info message
-      message = "INFO: " + message
+      message = "INFO: " + process_message(message)
+      output_message message, @info_color if valid_conditions 1
+    end
+
+    def info_pp message
+      message = "INFO: " + process_pp_message(message)
       output_message message, @info_color if valid_conditions 1
     end
 
     # builds info message and executes output_message if conditions are met
     def warn message
-      message = "WARN: " + message
+      message = "WARN: " + process_message(message)
+      output_message message, @warn_color if valid_conditions 2
+    end
+
+    def warn_pp message
+      message = "WARN: " + process_pp_message(message)
       output_message message, @warn_color if valid_conditions 2
     end
 
     # builds error message and executes output_message if conditions are met
     def error message
-      message = "ERROR: " + message
+      message = "ERROR: " + process_message(message)
+      output_message message, @error_color if valid_conditions 3
+    end
+
+    def error_pp message
+      message = "ERROR: " + process_pp_message(message)
       output_message message, @error_color if valid_conditions 3
     end
 
     def fatal message
-      message = "FATAL: " + message
+      message = "FATAL: " + process_message(message)
+      output_message message, @fatal_color if valid_conditions 4
+    end
+
+    def fatal_pp message
+      message = "FATAL: " + process_pp_message(message)
       output_message message, @fatal_color if valid_conditions 4
     end
 
     def unknown message
-      message = "UNKNOWN: " + message
+      message = "UNKNOWN: " + process_message(message)
+      output_message message, @unknown_color if valid_conditions 5
+    end
+
+    def unknown_pp message
+      message = "UNKNOWN: " + process_pp_message(message)
       output_message message, @unknown_color if valid_conditions 5
     end
 
@@ -106,6 +136,35 @@ module WatirmarkLog
     # determines if debug, info, warn, or error method is executed
     def valid_conditions level
       (get_level <= level and !@turn_off)
+    end
+
+    def process_message message
+      output = message
+      if message.class != String
+        object_output = capture_output {
+          puts message
+        }
+        output = "\n" + object_output.string
+      end
+      output
+    end
+
+    def process_pp_message message
+      object_output = capture_output {
+        pp message
+      }
+      object_output.string
+    end
+
+    def capture_output
+      begin
+        out = StringIO.new
+        $stdout = out
+        yield
+        return out
+      ensure
+        $stdout = STDOUT
+      end
     end
   end
 end

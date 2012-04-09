@@ -13,8 +13,10 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
         @log.info "info message"
         @log.warn "warn message"
         @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
       }
-      log_output.string.should match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/)
+      log_output.string.should match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/) and match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
     end
   end
 
@@ -26,8 +28,10 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
         @log.info "info message"
         @log.warn "warn message"
         @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
       }
-      log_output.string.should match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/)
+      log_output.string.should match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/) and match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
       log_output.string.should_not match(/DEBUG: debug message/)
     end
   end
@@ -40,8 +44,10 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
         @log.info "info message"
         @log.warn "warn message"
         @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
       }
-      log_output.string.should match(/WARN: warn message/) and match(/ERROR: error message/)
+      log_output.string.should match(/WARN: warn message/) and match(/ERROR: error message/) and match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
       log_output.string.should_not match(/DEBUG: debug message/) and match(/INFO: info message/)
     end
   end
@@ -54,9 +60,43 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
         @log.info "info message"
         @log.warn "warn message"
         @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
       }
-      log_output.string.should match(/ERROR: error message/)
+      log_output.string.should match(/ERROR: error message/) and match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
       log_output.string.should_not match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/)
+    end
+  end
+
+  specify "fatal level should not allow debug, info, warn, and errir level log methods to be executed" do
+    [WatirmarkLog::Level::FATAL, 4].each do |level|
+      @log.level = level
+      log_output = capture_stdout {
+        @log.debug "debug message"
+        @log.info "info message"
+        @log.warn "warn message"
+        @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
+      }
+      log_output.string.should match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
+      log_output.string.should_not match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/)
+    end
+  end
+
+  specify "unknown level should not allow debug, info, warn, and errir level log methods to be executed" do
+    [WatirmarkLog::Level::UNKNOWN, 5].each do |level|
+      @log.level = level
+      log_output = capture_stdout {
+        @log.debug "debug message"
+        @log.info "info message"
+        @log.warn "warn message"
+        @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
+      }
+      log_output.string.should match(/UNKNOWN: unknown message/)
+      log_output.string.should_not match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/) and  match(/FATAL: fatal message/)
     end
   end
 
@@ -68,8 +108,10 @@ context "Unit Tests for WatirmarkLog Hierarchy: (debug < info < warn < error)" d
         @log.info "info message"
         @log.warn "warn message"
         @log.error "error message"
+        @log.fatal "fatal message"
+        @log.unknown "unknown message"
       }
-      log_output.string.should match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/)
+      log_output.string.should match(/DEBUG: debug message/) and match(/INFO: info message/) and match(/WARN: warn message/) and match(/ERROR: error message/) and match(/FATAL: fatal message/) and match(/UNKNOWN: unknown message/)
     end
   end
 end

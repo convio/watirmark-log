@@ -38,7 +38,7 @@ module WatirmarkLog
     # file_name must be of type .log and only contain characters, digits, and underscores
     # file_name is @name.log by defualt
     # dir is the current working directory by debug
-    def create_file file_name=@file_name, dir=Dir.pwd
+    def create_log_file file_name=@file_name, dir=Dir.pwd
       @file_name = file_name
       @file_destination = dir
       if valid_file_name
@@ -59,8 +59,14 @@ module WatirmarkLog
     # @log.debug "this is a debug message from #{@log.inspect}"
     def debug message
       super message
-      output_to_file "DEBUG: " + message if @log_file
-      output_to_report_file "DEBUG: " + message if @spec_report_file
+      output_to_file "DEBUG: " + process_message(message) if @log_file
+      output_to_report_file "DEBUG: " + process_message(message) if @spec_report_file
+    end
+
+    def debug_pp message
+      super message
+      output_to_file "DEBUG: " + process_pp_message(message) if @log_file
+      output_to_report_file "DEBUG: " + process_pp_message(message) if @spec_report_file
     end
 
     # top level info method
@@ -69,8 +75,14 @@ module WatirmarkLog
     # @log.info "this is an info message from #{@log.inspect}"
     def info message
       super message
-      output_to_file "INFO: " + message if @log_file
-      output_to_report_file "INFO: " + message if @spec_report_file
+      output_to_file "INFO: " + process_message(message) if @log_file
+      output_to_report_file "INFO: " + process_message(message) if @spec_report_file
+    end
+
+    def info_pp message
+      super message
+      output_to_file "INFO: " + process_pp_message(message) if @log_file
+      output_to_report_file "INFO: " + process_pp_message(message) if @spec_report_file
     end
 
     # top level warn method
@@ -79,8 +91,14 @@ module WatirmarkLog
     # @log.warn "this is a warn message from #{@log.inspect}"
     def warn message
       super message
-      output_to_file "WARN: " + message if @log_file
-      output_to_report_file "WARN: " + message if @spec_report_file
+      output_to_file "WARN: " + process_message(message) if @log_file
+      output_to_report_file "WARN: " + process_message(message) if @spec_report_file
+    end
+
+    def warn_pp message
+      super message
+      output_to_file "WARN: " + process_pp_message(message) if @log_file
+      output_to_report_file "WARN: " + process_pp_message(message) if @spec_report_file
     end
 
     # top level error method
@@ -89,20 +107,38 @@ module WatirmarkLog
     # @log.error "this is an error message from #{@log.inspect}"
     def error message
       super message
-      output_to_file "ERROR: " + message if @log_file
-      output_to_report_file "ERROR: " + message if @spec_report_file
+      output_to_file "ERROR: " + process_message(message) if @log_file
+      output_to_report_file "ERROR: " + process_message(message) if @spec_report_file
+    end
+
+    def error_pp message
+      super message
+      output_to_file "ERROR: " + process_pp_message(message) if @log_file
+      output_to_report_file "ERROR: " + process_pp_message(message) if @spec_report_file
     end
 
     def fatal message
       super message
-      output_to_file "FATAL: " + message if @log_file
-      output_to_report_file "FATAL: " + message if @spec_report_file
+      output_to_file "FATAL: " + process_message(message) if @log_file
+      output_to_report_file "FATAL: " + process_message(message) if @spec_report_file
+    end
+
+    def fatal_pp message
+      super message
+      output_to_file "FATAL: " + process_pp_message(message) if @log_file
+      output_to_report_file "FATAL: " + process_pp_message(message) if @spec_report_file
     end
 
     def unknown message
       super message
-      output_to_file "UNKNOWN: " + message if @log_file
-      output_to_report_file "UNKNOWN: " + message if @spec_report_file
+      output_to_file "UNKNOWN: " + process_message(message) if @log_file
+      output_to_report_file "UNKNOWN: " + process_message(message) if @spec_report_file
+    end
+
+    def unknown_pp message
+      super message
+      output_to_file "UNKNOWN: " + process_pp_message(message) if @log_file
+      output_to_report_file "UNKNOWN: " + process_pp_message(message) if @spec_report_file
     end
 
     # returns the name of the Watirmark Logger

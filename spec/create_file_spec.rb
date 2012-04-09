@@ -7,7 +7,7 @@ context "Unit Tests for create_file method" do
   end
 
   specify "create a file" do
-    @log.create_file
+    @log.create_log_file
     capture_stdout {
       @log.debug "this is a debug message"
       @log.info "this is an info message"

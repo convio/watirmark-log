@@ -32,4 +32,18 @@ context "Unit tests for WatirmarkLog Debug, Info, Warn, and Error outputs" do
     }
     log_output.string.should match(/ERROR: This is an error message from WatirmarkLog/)
   end
+
+  specify "FATAL" do
+    log_output = capture_stdout {
+      @log.fatal "This is an error message from #{@log.inspect}"
+    }
+    log_output.string.should match(/FATAL: This is an error message from WatirmarkLog/)
+  end
+
+  specify "UNKNOWN" do
+    log_output = capture_stdout {
+      @log.unknown "This is an error message from #{@log.inspect}"
+    }
+    log_output.string.should match(/UNKNOWN: This is an error message from WatirmarkLog/)
+  end
 end

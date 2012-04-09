@@ -44,4 +44,24 @@ context "Unit Tests for WatirmarkLog color outputs" do
       log_output.string.should == color_match("ERROR: message with color", color)
     end
   end
+
+  specify "fatal colors" do
+    [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
+      @log.fatal_color = color
+      log_output = capture_stdout {
+        @log.fatal "message with color"
+      }
+      log_output.string.should == color_match("FATAL: message with color", color)
+    end
+  end
+
+  specify "unknown colors" do
+    [:black, :red, :green, :yellow, :blue, :magenta, :cyan, :white].each do |color|
+      @log.unknown_color = color
+      log_output = capture_stdout {
+        @log.unknown "message with color"
+      }
+      log_output.string.should == color_match("UNKNOWN: message with color", color)
+    end
+  end
 end
